@@ -3,7 +3,7 @@ window.onload = () => {
 
   const updateStorage = () => {
     // style.visibility = hidden or visible
-    const commentsSection = document.getElementById("sections");
+    const commentsSection = document.querySelector("ytd-item-section-renderer");
 
     // style.visibility = hidden or ""
     const recommendedSection = document.querySelector(

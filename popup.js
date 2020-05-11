@@ -132,7 +132,7 @@ toggleComments.onclick = () => {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.executeScript(tabs[0].id, {
       code:
-        'document.getElementById("sections").style.visibility = "' +
+        'document.querySelector("ytd-item-section-renderer").style.visibility = "' +
         visibility +
         '";',
     });
