@@ -1,5 +1,6 @@
 "use strict";
 
+// set up constant references to DOM elements
 const slider = document.getElementById("slider");
 const sliderValue = document.getElementById("slider-value");
 const toggleLoop = document.getElementById("toggleLoop");
@@ -7,10 +8,8 @@ const toggleMirror = document.getElementById("toggleMirror");
 const toggleComments = document.getElementById("toggleComments");
 const toggleRecommended = document.getElementById("toggleRecommended");
 
-let loopStartTime = 0;
-let loopEndTime = 0;
-
-chrome.storage.sync.get(
+// get the values upon opening popup
+chrome.storage.local.get(
   [
     "videoDuration",
     "showRecommended",
@@ -32,11 +31,9 @@ chrome.storage.sync.get(
       },
     });
 
-    loopStartTime = data.loopStart;
-    loopEndTime = data.loopEnd;
-
-    // set up event listener for displaying slider values
+    // set up event listener for when slider moves
     slider.noUiSlider.on("update", function (values) {
+      // display changes above slider
       sliderValue.innerHTML =
         "Loop from: " +
         values
@@ -51,16 +48,14 @@ chrome.storage.sync.get(
           .join(" - ");
     });
 
-    // set up event listener for saving slider changes
+    // set up event listener for saving slider changes when it stops moving
     slider.noUiSlider.on("change", function (values) {
+      // get the slider values
       const start = parseInt(values[0].split(".")[0]);
       const end = parseInt(values[1].split(".")[0]);
 
-      loopStartTime = start;
-      loopEndTime = end;
-
       // save the new start and end
-      chrome.storage.sync.set(
+      chrome.storage.local.set(
         {
           loopStart: start,
           loopEnd: end,
@@ -81,7 +76,7 @@ chrome.storage.sync.get(
 
 toggleLoop.onclick = () => {
   // store the new state
-  chrome.storage.sync.set(
+  chrome.storage.local.set(
     {
       loop: toggleLoop.checked,
     },
@@ -92,11 +87,11 @@ toggleLoop.onclick = () => {
 // ----------------- set up listener for mirror toggle -----------------
 
 toggleMirror.onclick = () => {
-  // save new visibility
+  // save new mirror direction
   const direction = toggleMirror.checked ? "scaleX(-1)" : "scaleX(1)";
 
   // store the new state
-  chrome.storage.sync.set(
+  chrome.storage.local.set(
     {
       mirror: toggleMirror.checked,
     },
@@ -121,7 +116,7 @@ toggleComments.onclick = () => {
   const visibility = toggleComments.checked ? "visible" : "hidden";
 
   // store the new state
-  chrome.storage.sync.set(
+  chrome.storage.local.set(
     {
       showComments: toggleComments.checked,
     },
@@ -146,7 +141,7 @@ toggleRecommended.onclick = () => {
   const visibility = toggleRecommended.checked ? "visible" : "hidden";
 
   // store the new state
-  chrome.storage.sync.set(
+  chrome.storage.local.set(
     {
       showRecommended: toggleRecommended.checked,
     },

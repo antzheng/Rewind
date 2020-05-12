@@ -1,4 +1,5 @@
 window.onload = () => {
+  // only allow the video player listener to be added once
   let addedListener = false;
 
   const updateStorage = () => {
@@ -14,9 +15,9 @@ window.onload = () => {
     const videoSection = document.querySelector("video");
 
     // store the appropriate values
-    chrome.storage.sync.set(
+    chrome.storage.local.set(
       {
-        videoDuration: Math.floor(videoSection.duration),
+        videoDuration: !videoSection ? 1 : Math.floor(videoSection.duration),
 
         showRecommended: !recommendedSection
           ? true
@@ -32,9 +33,11 @@ window.onload = () => {
 
         loopStart: 0,
 
-        loopEnd: Math.floor(videoSection.duration),
+        loopEnd: !videoSection ? 1 : Math.floor(videoSection.duration),
 
-        mirror: videoSection.style.transform === "scaleX(-1)",
+        mirror: !videoSection
+          ? false
+          : videoSection.style.transform === "scaleX(-1)",
       },
       function () {}
     );
@@ -42,7 +45,7 @@ window.onload = () => {
     // set up listener for video player
     if (!addedListener) {
       videoSection.ontimeupdate = () => {
-        chrome.storage.sync.get(["loop", "loopStart", "loopEnd"], function (
+        chrome.storage.local.get(["loop", "loopStart", "loopEnd"], function (
           data
         ) {
           if (data.loop) {
@@ -59,12 +62,15 @@ window.onload = () => {
     }
   };
 
+  // listener for navigating to new pages
   window.addEventListener("yt-navigate-finish", function () {
     if (window.location.href.includes("youtube.com/watch")) {
+      console.log("updated");
       updateStorage();
     }
   });
 
+  // initial configuration when script is first injected
   if (window.location.href.includes("youtube.com/watch")) {
     updateStorage();
   }
