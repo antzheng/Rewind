@@ -1,7 +1,7 @@
 {
   "name": "Rewind",
   "version": "1.0",
-  "description": "Building an extension to customize YouTube browsing experience!",
+  "description": "Loop segments, mirror videos, hide comments, and toggle recommended videos on YouTube.",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "background": {
     "scripts": ["background.js"],
