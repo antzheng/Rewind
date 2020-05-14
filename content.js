@@ -65,7 +65,6 @@ window.onload = () => {
   // listener for navigating to new pages
   window.addEventListener("yt-navigate-finish", function () {
     if (window.location.href.includes("youtube.com/watch")) {
-      console.log("updated");
       updateStorage();
     }
   });

@@ -1,6 +1,6 @@
 {
   "name": "Rewind",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "Loop segments, mirror videos, hide comments, and toggle recommended videos on YouTube.",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "background": {
