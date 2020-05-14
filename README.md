@@ -7,5 +7,4 @@ A Google Chrome extension for YouTube designed to make you want to "Rewind" that
 ## Notes
 
 - This is a successor to [YourTube](https://github.com/antzheng/YourTube)
-- This is **not** an official extension on the Chrome Store
-- To manually install the extension, you can clone the repo and unpack into ```chrome://extensions```
+- This [is an official extension](https://chrome.google.com/webstore/detail/rewind/needhfaeneknjcmhkkknfcnpjmifhjjj) on the Chrome Store!
