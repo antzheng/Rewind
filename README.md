@@ -1,4 +1,4 @@
-# Rewind – [YourTube 2.0](https://github.com/antzheng/YourTube)
+# Rewind
 
 ![App Demo](./github/demo.gif)
 
